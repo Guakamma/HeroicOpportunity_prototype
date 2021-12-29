@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be6ad8f884ee4ea884d6ffbfd61fd03d, type: 3}
+  m_Name: Data_Enemies_Info_Boss_1
+  m_EditorClassIdentifier: 
+  _enemyType: 2
+  _characterModel: {fileID: 5021095655646654622, guid: 4210e5e769d634196b238c815ce80c54,
+    type: 3}
+  _heroDistance: 20
+  _damage: 5
+  _health: 150
+  _gunInfo:
+    _fireRate: 3
+    _bulletPrefab: {fileID: 1389767798242581681, guid: ca4d6225b399b4e06a964144ce49588c,
+      type: 3}
+    _bulletSpeed: 1.05
+    _bulletLifetime: 5
+  _abilityCombo:
+  - FireSkull
+  - Pow
+  _abilityComboDamage: 100

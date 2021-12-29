@@ -1,0 +1,45 @@
+#ignore everything in the root
+/*
+/*/
+
+#except these dirs / files
+#see http://stackoverflow.com/questions/1248570/git-ignore-everything-except-subdirectory
+!/Assets/
+!/Packages/
+!/ProjectSettings/
+!*.gitignore
+!*.gitattributes
+!*.lfsconfig
+
+/**/LiveOps/.Importer/bin/*
+/**/LiveOps/.Importer/obj/*
+
+*.tif
+*.tif.meta
+
+/Assets/Plugins/Editor/JetBrains.meta
+/Assets/Plugins/Editor/JetBrains/*
+
+/Assets/__Andru/*
+/Assets/__Andru.meta
+
+**/Backup/*
+**/Backup.meta
+
+*.suo
+/**/.vs/**
+
+
+.DS_Store
+Thumbs.db
+Thumbs.db.meta
+
+.idea/
+
+
+#ignore Plugins/Android
+#Mechanism is that you have your Plugins in [PMFolder]/Plugins/[plugin_name]/Android|Amazon|GooglePlay
+#Those plugins are copied into Plugins/Android
+#PM takes care the changes are not registered as actual change by assuming 
+
+#PM_INJECTION_END
