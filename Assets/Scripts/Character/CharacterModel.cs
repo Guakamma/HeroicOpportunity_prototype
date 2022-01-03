@@ -1,3 +1,4 @@
+using Character;
 using Sirenix.OdinInspector;
 using UnityEngine;
 

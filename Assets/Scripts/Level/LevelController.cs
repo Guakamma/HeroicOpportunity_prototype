@@ -227,7 +227,7 @@ namespace HeroicOpportunity.Level
             string[] enemyIds = _levelInfo.EnemyIds;
             for (int i = 0; i < enemyIds.Length; i++)
             {
-                var enemy = ServicesHub.Enemies.CreateEnemy(enemyIds[i], transform);
+                BaseEnemyController enemy = ServicesHub.Enemies.CreateEnemy(enemyIds[i], transform);
                 if (i == 0)
                 {
                     enemy.Show();

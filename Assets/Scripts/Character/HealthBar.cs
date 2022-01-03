@@ -1,11 +1,12 @@
+using HeroicOpportunity.Character;
 using HeroicOpportunity.Game;
 using Sirenix.OdinInspector;
+using TMPro;
 using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
 
-
-namespace HeroicOpportunity.Character
+namespace Character
 {
     public class HealthBar : MonoBehaviour
     {
@@ -13,6 +14,21 @@ namespace HeroicOpportunity.Character
 
         [SerializeField] [Required]
         private Slider _scrollbar;
+        
+        [SerializeField] [Required]
+        private TextMeshProUGUI _healthCounter;
+        
+        [SerializeField] [Required]
+        private RectTransform _damageIndicatorPoint;
+
+        [Header("Damage Indicators")]
+        [SerializeField]
+        private float _heightPosition = 1f;
+        [SerializeField]
+        private float _animationDuration = 2f;
+
+        private DamageIndicatorSpawner _indicatorSpawner;
+        private int _savedHealth = 0;
 
         #endregion
 
@@ -24,10 +40,19 @@ namespace HeroicOpportunity.Character
         {
             transform.rotation = Quaternion.LookRotation(GameManager.Instance.MainCamera.transform.forward);
             SetScrollValue(character.Health, maxHealth);
+            SetHealthCounter(character.Health);
+            _savedHealth = character.Health;
 
             character.ObserveEveryValueChanged(c => c.Health)
-                .Subscribe(h => SetScrollValue(h, maxHealth))
+                .Subscribe(health =>
+                {
+                    SetScrollValue(health, maxHealth);
+                    SetHealthCounter(health);
+                    PlayGetDamageEffect(character.Health);
+                })
                 .AddTo(this);
+
+            _indicatorSpawner = new DamageIndicatorSpawner(_damageIndicatorPoint, _heightPosition, _animationDuration, color: Color.black);
         }
 
         #endregion
@@ -39,6 +64,20 @@ namespace HeroicOpportunity.Character
         private void SetScrollValue(int health, int maxHealth)
         {
             _scrollbar.value = (float)health / maxHealth;
+        }
+        
+        private void SetHealthCounter(int health)
+        {
+            _healthCounter.text = Mathf.Max(0, health).ToString();
+        }
+
+        private void PlayGetDamageEffect(int currentHealth)
+        {
+            int damage = _savedHealth - currentHealth;
+            _savedHealth = currentHealth;
+            
+            if (damage > 0)
+                _indicatorSpawner.Show(damage);
         }
 
         #endregion

@@ -58,6 +58,11 @@ namespace HeroicOpportunity.Ui
             _abilityCard.Fade.DOFillAmount(0.0f, _abilityInfo.ReloadTime)
                 .SetLink(gameObject)
                 .OnComplete(() => _button.interactable = true);
+
+            _abilityCard.CooldownTimer.gameObject.SetActive(true);
+            _abilityCard.CooldownTimer.DOCounter((int)_abilityInfo.ReloadTime, 0, _abilityInfo.ReloadTime)
+                .SetLink(gameObject)
+                .OnComplete(() => _abilityCard.CooldownTimer.gameObject.SetActive(false));
         }
 
         #endregion

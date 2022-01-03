@@ -42,7 +42,7 @@ public static class CustomSetupOnPlayExecutor
 
     private static UndoPropertyModification[] PostprocessModifications(UndoPropertyModification[] modifications)
     {
-        var hasResourceAsset = HasResourceAsset(Selection.assetGUIDs);
+        bool hasResourceAsset = HasResourceAsset(Selection.assetGUIDs);
         if (hasResourceAsset)
         {
             AssetDatabase.SaveAssets();

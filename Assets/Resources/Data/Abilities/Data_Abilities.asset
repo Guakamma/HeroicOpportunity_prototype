@@ -34,7 +34,19 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
-      Data: 3
+      Data: 4
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: Fire
+    - Name: $v
+      Entry: 1
+      Data: Data/Abilities/Infos/Data_Abilities_Infos_Fire
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 7
       Data: 

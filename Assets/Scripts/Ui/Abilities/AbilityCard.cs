@@ -17,6 +17,9 @@ namespace HeroicOpportunity.Ui
         [SerializeField]
         [Required]
         protected Image _fade;
+        
+        [SerializeField]
+        protected Text _cooldownTimer;
 
         private AbilityInfo _abilityInfo;
 
@@ -28,6 +31,7 @@ namespace HeroicOpportunity.Ui
 
         public string Id => _abilityInfo.Id;
         public Image Fade => _fade;
+        public Text CooldownTimer => _cooldownTimer;
         public bool IsFade => Fade.fillAmount > 0.0f;
 
         #endregion
@@ -42,6 +46,9 @@ namespace HeroicOpportunity.Ui
 
             _icon.sprite = _abilityInfo.Icon;
             _fade.sprite = _abilityInfo.Icon;
+            
+            if (_cooldownTimer != null)
+                _cooldownTimer.gameObject.SetActive(false);
         }
 
 

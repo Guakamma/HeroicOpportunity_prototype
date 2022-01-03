@@ -16,7 +16,7 @@ namespace HeroicOpportunity.Ui
         #region Fields
 
         private RectTransform _cardsRoot;
-        private List<AbilityCard> _abilityCards = new List<AbilityCard>();
+        private readonly List<AbilityCard> _abilityCards = new List<AbilityCard>();
         private EnemyInfo _enemyInfo;
 
         #endregion
@@ -111,7 +111,7 @@ namespace HeroicOpportunity.Ui
             _abilityCards.Clear();
 
             if(_cardsRoot)
-            _cardsRoot.gameObject.SetActive(false);
+                _cardsRoot.gameObject.SetActive(false);
         }
 
         #endregion
