@@ -1,35 +1,25 @@
 using System.Collections.Generic;
-using System.Linq;
-using HeroicOpportunity.Paths;
-using Sirenix.OdinInspector;
-using UnityEngine;
-
-#if UNITY_EDITOR
 using System.IO;
+using System.Linq;
+using HeroicOpportunity.Data;
+using HeroicOpportunity.Data.Abilities;
+using HeroicOpportunity.Paths;
+using Services.Abilities;
+using Sirenix.OdinInspector;
 using UnityEditor;
+using UnityEngine;
+#if UNITY_EDITOR
 #endif
 
-namespace HeroicOpportunity.Data.Abilities
+namespace Data.Abilities
 {
     [CreateAssetMenu(fileName = "Data_Abilities", menuName = "Data/Abilities/Abilities Data")]
     public class AbilitiesData : SerializedScriptableObject
     {
-        #region Fields
-
         [SerializeField] [ReadOnly]
-        private Dictionary<string, string> _abilitiesInfoPaths;
+        private Dictionary<AbilityType, string> _abilitiesInfoPaths;
 
-        #endregion
-
-
-
-        #region Properties
-
-        public Dictionary<string, string> AbilitiesInfoPaths => _abilitiesInfoPaths;
-        public string[] AllIds => _abilitiesInfoPaths.Keys.ToArray();
-
-        #endregion
-
+        public Dictionary<AbilityType, string> AbilitiesInfoPaths => _abilitiesInfoPaths;
 
 
         #if UNITY_EDITOR
@@ -41,7 +31,7 @@ namespace HeroicOpportunity.Data.Abilities
 
             string targetParentFolder = Path.GetDirectoryName(Common.GetResourcesAssetPath(target));
             target._abilitiesInfoPaths = Resources.LoadAll<AbilityInfo>(targetParentFolder)
-                .ToDictionary(i => i.Id, Common.GetResourcesAssetPath);
+                .ToDictionary(i => i.Type, Common.GetResourcesAssetPath);
 
             EditorUtility.SetDirty(target);
         }

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81fedc3920a844159987473af58d66a2, type: 3}
   m_Name: Data_Abilities_Infos_Rockets
   m_EditorClassIdentifier: 
+  _type: 3
   _icon: {fileID: 21300000, guid: 203ccebd601e0492d9928e9ace5902bb, type: 3}
   _reloadTime: 10
   _damage: 50

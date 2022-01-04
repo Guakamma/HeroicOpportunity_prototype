@@ -7,6 +7,7 @@ using HeroicOpportunity.Services.Events;
 using HeroicOpportunity.Services.Level;
 using System.Collections.Generic;
 using HeroicOpportunity.Game;
+using Services;
 using UniRx;
 using UnityEngine;
 
@@ -88,9 +89,23 @@ namespace HeroicOpportunity.Character.Hero
                 .Subscribe(OnStateChanged)
                 .AddTo(_disposables)
                 .AddTo(this);
+            
+            ServicesHub.Events.Ability.AbilityComboDamage
+                .Subscribe((damage) =>
+                {
+                    if (damage > 0)
+                        HealUp();
+                })
+                .AddTo(this)
+                .AddTo(_disposables);
 
             BulletDamageHandler bulletDamageHandler = gameObject.AddComponent<BulletDamageHandler>();
             bulletDamageHandler.Initialize(characterModel.Collider, this);
+        }
+
+        private void HealUp()
+        {
+            Health = _heroInfo.Health;
         }
 
 

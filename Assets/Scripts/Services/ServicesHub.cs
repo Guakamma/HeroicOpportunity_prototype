@@ -4,9 +4,10 @@ using HeroicOpportunity.Services.Events;
 using HeroicOpportunity.Services.Hero;
 using HeroicOpportunity.Services.Level;
 using HeroicOpportunity.Services.Prefs;
+using Services.Abilities;
+using Services.Enemies;
 
-
-namespace HeroicOpportunity.Services
+namespace Services
 {
     public class ServicesHub : Singleton<ServicesHub>
     {
@@ -16,6 +17,7 @@ namespace HeroicOpportunity.Services
         private readonly IEnemiesService _enemiesService;
         private readonly ILevelService _levelService;
         private readonly IAbilitiesService _abilitiesService;
+        private readonly IComboService _comboService;
 
 
         private static IPrefsService Prefs => Instance._prefsService;
@@ -24,6 +26,7 @@ namespace HeroicOpportunity.Services
         public static IEnemiesService Enemies => Instance._enemiesService;
         public static ILevelService Level => Instance._levelService;
         public static IAbilitiesService Abilities => Instance._abilitiesService;
+        public static IComboService Combo => Instance._comboService;
 
 
         public ServicesHub()
@@ -34,6 +37,7 @@ namespace HeroicOpportunity.Services
             _enemiesService = new EnemiesServiceImpl(_heroService);
             _levelService = new LevelServiceImpl(_prefsService);
             _abilitiesService = new AbilitiesServicesImpl();
+            _comboService = new ComboServiceImpl();
         }
     }
 }

@@ -1,33 +1,22 @@
+using System.Collections.Generic;
+using Character.Enemy;
+using Data.Enemies;
 using HeroicOpportunity.Data;
 using HeroicOpportunity.Data.Enemies;
-using HeroicOpportunity.Character.Enemy;
-using System.Collections.Generic;
+using HeroicOpportunity.Services.Enemies;
 using HeroicOpportunity.Services.Hero;
 using UnityEngine;
 
-
-namespace HeroicOpportunity.Services.Enemies
+namespace Services.Enemies
 {
     public class EnemiesServiceImpl : IEnemiesService
     {
-        #region Fields
-
         private readonly IHeroService _heroService;
         private readonly Dictionary<string, EnemyInfo> _enemyInfos;
 
-        #endregion
-
-
-
-        #region Properties
 
         private EnemiesData EnemiesData => DataHub.Enemies;
 
-        #endregion
-
-
-
-        #region Class lifecycle
 
         public EnemiesServiceImpl(IHeroService heroService)
         {
@@ -40,11 +29,6 @@ namespace HeroicOpportunity.Services.Enemies
             }
         }
 
-        #endregion
-
-
-
-        #region IEnemiesService
 
         public BaseEnemyController CreateEnemy(string enemyId, Transform parent)
         {
@@ -62,7 +46,5 @@ namespace HeroicOpportunity.Services.Enemies
 
             return enemy;
         }
-
-        #endregion
     }
 }

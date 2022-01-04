@@ -1,3 +1,5 @@
+using Services.Events;
+
 namespace HeroicOpportunity.Services.Events
 {
     public class EventsServicesImpl : IEventsService

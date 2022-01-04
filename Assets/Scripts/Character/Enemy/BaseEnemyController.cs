@@ -1,21 +1,20 @@
 using System;
 using System.Collections.Generic;
+using Data.Enemies;
+using HeroicOpportunity.Character;
 using HeroicOpportunity.Data.Enemies;
 using HeroicOpportunity.Game;
 using HeroicOpportunity.Gun;
-using HeroicOpportunity.Services;
 using HeroicOpportunity.Services.Hero;
 using HeroicOpportunity.Services.Level;
+using Services;
 using UniRx;
 using UnityEngine;
 
-
-namespace HeroicOpportunity.Character.Enemy
+namespace Character.Enemy
 {
     public class BaseEnemyController : MonoBehaviour, ICharacter
     {
-        #region Fields
-
         private CompositeDisposable _disposables;
         private int _health;
         private CharacterModel _characterModel;
@@ -23,22 +22,12 @@ namespace HeroicOpportunity.Character.Enemy
         private BulletDamageHandler _bulletDamageHandler;
         private AbilityDamage _abilityDamage;
 
-        #endregion
-
-
-
-        #region Properties
 
         public EnemyInfo EnemyInfo { get; private set; }
 
         public bool IsDied => Health <= 0;
 
-        #endregion
-
-
-
-        #region Public nmethods
-
+        
         public void Initialize(EnemyInfo enemyInfo)
         {
             EnemyInfo = enemyInfo;
@@ -70,10 +59,10 @@ namespace HeroicOpportunity.Character.Enemy
                 {
                     Vector3 targetPosition = transform.position;
                     targetPosition.z = heroService.ActiveHero.transform.position.z + EnemyInfo.HeroDistance;
-                    transform.position = (targetPosition);
+                    transform.position = targetPosition;
                 })
                 .AddTo(this);
-
+            
             GameStateController.OnStateChanged
                 .Subscribe(OnStateChanged)
                 .AddTo(_disposables)
@@ -99,7 +88,6 @@ namespace HeroicOpportunity.Character.Enemy
 
         public void Show()
         {
-
             Observable.Timer(TimeSpan.FromSeconds(0.5))
                 .Subscribe(_ =>
                 {
@@ -116,16 +104,11 @@ namespace HeroicOpportunity.Character.Enemy
         public void Hide()
         {
             _bulletDamageHandler.Dispose();
-                _abilityDamage.Dispose();
+            _abilityDamage.Dispose();
             SetIsShoot(false);
             gameObject.SetActive(false);
         }
 
-        #endregion
-
-
-
-        #region Private methods
 
         private void Dead()
         {
@@ -167,11 +150,6 @@ namespace HeroicOpportunity.Character.Enemy
             }
         }
 
-        #endregion
-
-
-
-        #region ICharacter
 
         public GameObject Root => gameObject;
         public int Damage => EnemyInfo.Damage;
@@ -193,7 +171,5 @@ namespace HeroicOpportunity.Character.Enemy
                 Dead();
             }
         }
-
-        #endregion
     }
 }

@@ -1,5 +1,5 @@
 using System;
-using HeroicOpportunity.Character.Enemy;
+using Character.Enemy;
 using UniRx;
 
 

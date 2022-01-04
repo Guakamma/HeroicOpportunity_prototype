@@ -1,3 +1,4 @@
+using Data.Abilities;
 using HeroicOpportunity.Data.Abilities;
 using HeroicOpportunity.Data.Enemies;
 using HeroicOpportunity.Data.Heroes;
@@ -15,6 +16,7 @@ namespace HeroicOpportunity.Data
         private static HeroesData heroesData;
         private static EnemiesData enemiesData;
         private static AbilitiesData abilitiesData;
+        private static ComboData comboData;
 
         #endregion
 
@@ -26,6 +28,7 @@ namespace HeroicOpportunity.Data
         public static HeroesData Heroes => Instance.GetLazy(ref heroesData, "Data/Heroes/Data_Heroes");
         public static EnemiesData Enemies => Instance.GetLazy(ref enemiesData, "Data/Enemies/Data_Enemies");
         public static AbilitiesData Abilities => Instance.GetLazy(ref abilitiesData, "Data/Abilities/Data_Abilities");
+        public static ComboData Combo => Instance.GetLazy(ref comboData, "Data/Abilities/Data_Combo");
 
         #endregion
 

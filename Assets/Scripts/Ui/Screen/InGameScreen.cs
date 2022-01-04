@@ -1,7 +1,8 @@
 using HeroicOpportunity.Data.Abilities;
 using HeroicOpportunity.Game;
-using HeroicOpportunity.Services;
+using Services;
 using Sirenix.OdinInspector;
+using Ui.Abilities;
 using UniRx;
 using UnityEngine;
 using UnityEngine.UI;

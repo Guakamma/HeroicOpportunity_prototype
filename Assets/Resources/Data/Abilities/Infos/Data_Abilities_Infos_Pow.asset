@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81fedc3920a844159987473af58d66a2, type: 3}
   m_Name: Data_Abilities_Infos_Pow
   m_EditorClassIdentifier: 
+  _type: 1
   _icon: {fileID: 21300000, guid: ea18ad80e6e7f444c9489458c0974234, type: 3}
   _reloadTime: 6
   _damage: 15

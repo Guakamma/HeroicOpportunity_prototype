@@ -1,12 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using HeroicOpportunity.Character.Enemy;
+using Character.Enemy;
 using HeroicOpportunity.Character.Hero;
 using HeroicOpportunity.Data.Levels;
 using HeroicOpportunity.Game;
 using HeroicOpportunity.Services;
 using HeroicOpportunity.Services.Events;
+using Services;
 using UniRx;
 using UnityEngine;
 

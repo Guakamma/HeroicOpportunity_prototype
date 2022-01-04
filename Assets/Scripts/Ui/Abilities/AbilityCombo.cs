@@ -1,30 +1,23 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using HeroicOpportunity.Character.Enemy;
+using Character.Enemy;
+using Data.Abilities;
 using HeroicOpportunity.Data.Abilities;
-using HeroicOpportunity.Data.Enemies;
-using HeroicOpportunity.Services;
+using HeroicOpportunity.Ui;
+using Services;
+using Services.Abilities;
 using UniRx;
 using UnityEngine;
 
-
-namespace HeroicOpportunity.Ui
+namespace Ui.Abilities
 {
     public class AbilityCombo : MonoBehaviour
     {
-        #region Fields
-
         private RectTransform _cardsRoot;
         private readonly List<AbilityCard> _abilityCards = new List<AbilityCard>();
-        private EnemyInfo _enemyInfo;
+        private ComboInfo _comboInfo;
 
-        #endregion
-
-
-
-        #region Public methods
-
+        
         public void Initialize(RectTransform cardsRoot)
         {
             _cardsRoot = cardsRoot;
@@ -38,43 +31,41 @@ namespace HeroicOpportunity.Ui
                 .AddTo(this);
 
             ServicesHub.Events.Ability.AbilityDamage
-                .Where(_ => _enemyInfo != null)
-                .Subscribe(i =>
-                {
-                    var firstCard = _abilityCards.FirstOrDefault(a => a.IsFade);
-                    if (firstCard == null)
-                    {
-                        return;
-                    }
-
-                    if (firstCard.Id == i.Id)
-                    {
-                        firstCard.SetFade(0.0f);
-                    }
-
-                    if (_abilityCards.All(c => !c.IsFade))
-                    {
-                        ServicesHub.Events.Ability.ComboDamage(_enemyInfo.AbilityComboDamage);
-                        foreach (var a in _abilityCards)
-                        {
-                            a.SetFade(1.0f);
-                        }
-                    }
-                })
+                .Where(_ => _comboInfo != null)
+                .Subscribe(CheckComboComplete)
                 .AddTo(this);
         }
 
-        #endregion
+        private void CheckComboComplete(AbilityInfo abilityInfo)
+        {
+            AbilityCard firstCard = _abilityCards.FirstOrDefault(a => (!_comboInfo.IsRandomActive || a.Type == abilityInfo.Type) && a.IsFade);
+            
+            if (firstCard == null)
+                return;
 
+            if (firstCard.Id == abilityInfo.Id)
+            {
+                firstCard.SetFade(0.0f);
+            }
 
-
-        #region Private methods
+            if (_abilityCards.All(c => !c.IsFade))
+            {
+                ServicesHub.Events.Ability.ComboDamage(_comboInfo.AbilityComboDamage);
+                foreach (var a in _abilityCards)
+                {
+                    a.SetFade(1.0f);
+                }
+            }
+        }
 
         private void CheckEnemy(BaseEnemyController enemyController)
         {
             if (enemyController.EnemyInfo.IsBoss)
             {
-                Create(enemyController.EnemyInfo);
+                if (_comboInfo != null)
+                    DisposeCards();
+                
+                Create();
             }
             else
             {
@@ -83,13 +74,14 @@ namespace HeroicOpportunity.Ui
         }
 
 
-        private void Create(EnemyInfo enemyInfo)
+        private void Create()
         {
-            _enemyInfo = enemyInfo;
-            AbilityCard abilityCardPrefab = Resources.Load<AbilityCard>(Paths.Ui.AbilitiesCard);
-            foreach (string abilityId in enemyInfo.AbilityCombo)
+            _comboInfo = ServicesHub.Combo.GetRandomComboInfo();
+            AbilityCard abilityCardPrefab = Resources.Load<AbilityCard>(HeroicOpportunity.Paths.Ui.AbilitiesCard);
+            
+            foreach (AbilityType abilityType in _comboInfo.AbilityComboSchedule)
             {
-                AbilityInfo abilityInfo = ServicesHub.Abilities.GetAllAbilityInfos().First(i => i.Id == abilityId);
+                AbilityInfo abilityInfo = ServicesHub.Abilities.GetAllAbilityInfos().First(i => i.Type == abilityType);
                 AbilityCard abilityCard = Instantiate(abilityCardPrefab, _cardsRoot);
                 abilityCard.Initialize(abilityInfo);
                 abilityCard.SetFade(1.0f);
@@ -102,7 +94,7 @@ namespace HeroicOpportunity.Ui
 
         private void DisposeCards()
         {
-            _enemyInfo = null;
+            _comboInfo = null;
             foreach (var abilityCard in _abilityCards)
             {
                 Destroy(abilityCard.gameObject);
@@ -113,7 +105,5 @@ namespace HeroicOpportunity.Ui
             if(_cardsRoot)
                 _cardsRoot.gameObject.SetActive(false);
         }
-
-        #endregion
     }
 }

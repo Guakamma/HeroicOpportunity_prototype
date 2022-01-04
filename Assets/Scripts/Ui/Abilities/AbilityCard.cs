@@ -1,4 +1,5 @@
 using HeroicOpportunity.Data.Abilities;
+using Services.Abilities;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UI;
@@ -33,6 +34,7 @@ namespace HeroicOpportunity.Ui
         public Image Fade => _fade;
         public Text CooldownTimer => _cooldownTimer;
         public bool IsFade => Fade.fillAmount > 0.0f;
+        public AbilityType Type { get; private set; }
 
         #endregion
 
@@ -42,6 +44,7 @@ namespace HeroicOpportunity.Ui
 
         public void Initialize(AbilityInfo abilityInfo)
         {
+            Type = abilityInfo.Type;
             _abilityInfo = abilityInfo;
 
             _icon.sprite = _abilityInfo.Icon;

@@ -1,17 +1,18 @@
 using System.Collections.Generic;
 using System.Linq;
+using Data.Abilities;
 using HeroicOpportunity.Data;
 using HeroicOpportunity.Data.Abilities;
+using HeroicOpportunity.Services.Abilities;
 using UnityEngine;
 
-
-namespace HeroicOpportunity.Services.Abilities
+namespace Services.Abilities
 {
     public class AbilitiesServicesImpl : IAbilitiesService
     {
         #region Fields
 
-        private readonly Dictionary<string, AbilityInfo> _heroInfos;
+        private readonly Dictionary<AbilityType, AbilityInfo> _heroInfos;
 
         #endregion
 
@@ -29,7 +30,7 @@ namespace HeroicOpportunity.Services.Abilities
 
         public AbilitiesServicesImpl()
         {
-            _heroInfos = new Dictionary<string, AbilityInfo>();
+            _heroInfos = new Dictionary<AbilityType, AbilityInfo>();
             foreach (var p in AbilitiesData.AbilitiesInfoPaths)
             {
                 _heroInfos.Add(p.Key, Resources.Load<AbilityInfo>(p.Value));
@@ -44,7 +45,9 @@ namespace HeroicOpportunity.Services.Abilities
 
         public AbilityInfo[] GetAllAbilityInfos()
         {
-            return _heroInfos.Values.ToArray();
+            List<AbilityInfo> allAbilityInfos = _heroInfos.Values.ToList();
+            allAbilityInfos.Sort((x, y) => x.Type.CompareTo(y.Type));
+            return allAbilityInfos.ToArray();
         }
 
         #endregion

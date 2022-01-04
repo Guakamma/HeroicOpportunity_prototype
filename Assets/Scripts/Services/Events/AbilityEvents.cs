@@ -2,8 +2,7 @@ using System;
 using HeroicOpportunity.Data.Abilities;
 using UniRx;
 
-
-namespace HeroicOpportunity.Services.Events
+namespace Services.Events
 {
     public class AbilityEvents
     {

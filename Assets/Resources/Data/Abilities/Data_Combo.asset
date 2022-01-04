@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a5c9d057c73b4a3ca9aae50add472273, type: 3}
-  m_Name: Data_Abilities
+  m_Script: {fileID: 11500000, guid: 099dbfe8c53c4cff847c08de91a2e6d8, type: 3}
+  m_Name: Data_Combo
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -21,71 +21,53 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes:
-    - Name: _abilitiesInfoPaths
+    - Name: _comboInfoPaths
       Entry: 7
-      Data: 0|System.Collections.Generic.Dictionary`2[[Services.Abilities.AbilityType,
-        Assembly-CSharp],[System.String, mscorlib]], mscorlib
+      Data: 0|System.Collections.Generic.Dictionary`2[[System.String, mscorlib],[System.String,
+        mscorlib]], mscorlib
     - Name: comparer
       Entry: 7
-      Data: 1|System.Collections.Generic.EnumEqualityComparer`1[[Services.Abilities.AbilityType,
-        Assembly-CSharp]], mscorlib
-    - Name: 
-      Entry: 12
-      Data: 0
-    - Name: 
-      Entry: 13
-      Data: 
+      Data: 1|System.Collections.Generic.GenericEqualityComparer`1[[System.String,
+        mscorlib]], mscorlib
     - Name: 
       Entry: 8
       Data: 
     - Name: 
       Entry: 12
-      Data: 4
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 4
-    - Name: $v
-      Entry: 1
-      Data: Data/Abilities/Infos/Data_Abilities_Infos_Fire
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 2
-    - Name: $v
-      Entry: 1
-      Data: Data/Abilities/Infos/Data_Abilities_Infos_FireSkull
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
-      Data: 1
-    - Name: $v
-      Entry: 1
-      Data: Data/Abilities/Infos/Data_Abilities_Infos_Pow
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 3
       Data: 3
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: name 1
     - Name: $v
       Entry: 1
-      Data: Data/Abilities/Infos/Data_Abilities_Infos_Rockets
+      Data: Data/Abilities/Combo/Data_Ability_Combo_Info_name 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: name 2
+    - Name: $v
+      Entry: 1
+      Data: Data/Abilities/Combo/Data_Ability_Combo_Info_name 2
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 
+    - Name: $k
+      Entry: 1
+      Data: name 3
+    - Name: $v
+      Entry: 1
+      Data: Data/Abilities/Combo/Data_Ability_Combo_Info_name 3
     - Name: 
       Entry: 8
       Data: 
