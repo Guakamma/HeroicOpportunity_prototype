@@ -29,7 +29,7 @@ namespace Character.Damage
                 .Subscribe(bullet =>
                 {
                     int damage = bullet.Damage;
-                    _character.GetDamaged(damage);
+                    _character.GetDamage(damage);
                     bullet.Dispose();
                 })
                 .AddTo(this)

@@ -35,7 +35,7 @@ namespace Ui.Abilities
                 .Subscribe(OnStateChanged)
                 .AddTo(this);
 
-            ServicesHub.Events.Ability.AbilityDamage
+            ServicesHub.Events.Ability.AbilityUse
                 .Where(_ => _comboInfo != null)
                 .Subscribe(CheckComboComplete)
                 .AddTo(this);

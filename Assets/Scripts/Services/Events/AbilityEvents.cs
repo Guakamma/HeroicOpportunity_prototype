@@ -10,7 +10,7 @@ namespace Services.Events
         private readonly Subject<int> _abilityComboDamage = new Subject<int>();
 
 
-        public IObservable<AbilityInfo> AbilityDamage => _abilityDamage.AsObservable();
+        public IObservable<AbilityInfo> AbilityUse => _abilityDamage.AsObservable();
         public IObservable<int> AbilityComboDamage => _abilityComboDamage.AsObservable();
 
 

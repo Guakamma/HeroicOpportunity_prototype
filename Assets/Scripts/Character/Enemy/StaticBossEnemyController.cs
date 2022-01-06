@@ -10,16 +10,23 @@ namespace Character.Enemy
 {
     public class StaticBossEnemyController : BaseEnemyController
     {
+        private CompositeDisposable _disposables;
+        
         private float _followGunsDelay = 1f;
 
         public override void Initialize(EnemyInfo enemyInfo)
         {
             base.Initialize(enemyInfo);
+            _disposables = new CompositeDisposable();
 
-             ServicesHub.Events.Hero.DirectionChanged
+            ServicesHub.Events.Hero.DirectionChanged
                 .Subscribe(ChangeGunsDirection)
                 .AddTo(this);
-             
+
+            ServicesHub.Events.Ability.AbilityComboDamage
+                 .Subscribe(GetDamage)
+                 .AddTo(this)
+                 .AddTo(_disposables);
         }
 
         private void ChangeGunsDirection((Direction direction, float value) delta)
@@ -35,6 +42,12 @@ namespace Character.Enemy
             {
                 gun.transform.position += new Vector3(delta, 0, 0);
             }
+        }
+
+        public override void Dispose()
+        {
+            base.Dispose();
+            _disposables.Dispose();
         }
     }
 }

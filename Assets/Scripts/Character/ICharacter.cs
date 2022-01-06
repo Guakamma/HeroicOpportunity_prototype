@@ -9,6 +9,6 @@ namespace HeroicOpportunity.Character
         int Damage { get; }
         int Health { get; }
 
-        void GetDamaged(int value);
+        void GetDamage(int value);
     }
 }

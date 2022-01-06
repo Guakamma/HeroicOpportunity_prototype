@@ -1,19 +1,16 @@
 using DG.Tweening;
 using HeroicOpportunity.Data.Abilities;
-using HeroicOpportunity.Services;
+using HeroicOpportunity.Ui;
 using Services;
 using Sirenix.OdinInspector;
 using UniRx;
 using UnityEngine;
 using UnityEngine.UI;
 
-
-namespace HeroicOpportunity.Ui
+namespace Ui.Abilities
 {
     public class AbilityCardInGame : MonoBehaviour
     {
-        #region Fiedld
-
         [SerializeField]
         [Required]
         private AbilityCard _abilityCard;
@@ -24,11 +21,6 @@ namespace HeroicOpportunity.Ui
 
         private AbilityInfo _abilityInfo;
 
-        #endregion
-
-
-
-        #region Public methods
 
         public void Initialize(AbilityInfo abilityInfo)
         {
@@ -46,12 +38,6 @@ namespace HeroicOpportunity.Ui
                 .AddTo(this);
         }
 
-        #endregion
-
-
-
-        #region Private methods
-
         private void Reload()
         {
             _abilityCard.SetFade(1.0f);
@@ -65,7 +51,5 @@ namespace HeroicOpportunity.Ui
                 .SetLink(gameObject)
                 .OnComplete(() => _abilityCard.CooldownTimer.gameObject.SetActive(false));
         }
-
-        #endregion
     }
 }

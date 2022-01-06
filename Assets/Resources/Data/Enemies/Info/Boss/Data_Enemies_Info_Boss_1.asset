@@ -18,8 +18,7 @@ MonoBehaviour:
   _heroDistance: 20
   _speed: 8
   _damage: 5
-  _health: 250
-  _spawnRate: 9
+  _health: 350
   _gunInfo:
     _fireRate: 3
     _bulletPrefab: {fileID: 1389767798242581681, guid: ca4d6225b399b4e06a964144ce49588c,

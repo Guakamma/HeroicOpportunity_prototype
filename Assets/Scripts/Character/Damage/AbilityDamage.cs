@@ -9,7 +9,7 @@ namespace Character.Damage
     {
         #region Fields
 
-        private CompositeDisposable _disposables = new CompositeDisposable();
+        private CompositeDisposable _disposables;
 
         private ICharacter _character;
 
@@ -19,22 +19,16 @@ namespace Character.Damage
 
         #region Public methods
 
-        public void Initialize(ICharacter character)
+        public void Initialize(Collider heroCollider, ICharacter character)
         {
-            // _disposables = new CompositeDisposable();
+            _disposables = new CompositeDisposable();
             _character = character;
 
-            // ServicesHub.Events.Ability.AbilityDamage
-            //     .Subscribe(a => _character.GetDamaged(a.Damage))
+            // ServicesHub.Events.Ability.AbilityComboDamage
+            //     .Subscribe(damage => _character.GetDamage(damage))
             //     .AddTo(this)
             //     .AddTo(_disposables);
-
-            ServicesHub.Events.Ability.AbilityComboDamage
-                .Subscribe(damage => _character.GetDamaged(damage))
-                .AddTo(this)
-                .AddTo(_disposables);
         }
-
 
         public void Dispose()
         {

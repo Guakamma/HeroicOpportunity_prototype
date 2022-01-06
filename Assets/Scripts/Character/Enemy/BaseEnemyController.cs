@@ -17,7 +17,7 @@ namespace Character.Enemy
         private CompositeDisposable _disposables;
         private CharacterModel _characterModel;
         private BulletDamageHandler _bulletDamageHandler;
-        private AbilityDamage _abilityDamage;
+        //private AbilityDamage _abilityDamage;
         
         private int _health;
 
@@ -37,6 +37,7 @@ namespace Character.Enemy
 
             Health = EnemyInfo.Health;
             _characterModel.HealthBar.Initialize(this, EnemyInfo.Health);
+            _characterModel.Initialize(this);
 
             _gunsControllers = new List<GunsController>();
             foreach (var root in _characterModel.GunRoots)
@@ -58,7 +59,7 @@ namespace Character.Enemy
                 .AddTo(this);
 
             _bulletDamageHandler = gameObject.AddComponent<BulletDamageHandler>();
-            _abilityDamage = gameObject.AddComponent<AbilityDamage>();
+            //_abilityDamage = gameObject.AddComponent<AbilityDamage>();
         }
 
         protected virtual void Move(EnemyInfo enemyInfo)
@@ -92,7 +93,7 @@ namespace Character.Enemy
                     ServicesHub.Events.Enemy.ShowEnemy(this);
                     gameObject.SetActive(true);
                     _bulletDamageHandler.Initialize(_characterModel.Collider, this);
-                    _abilityDamage.Initialize(this);//_characterModel.Collider, this);
+                    //_abilityDamage.Initialize(_characterModel.Collider, this);
                     SetPositionFromHero();
                 })
                 .AddTo(this);
@@ -106,10 +107,10 @@ namespace Character.Enemy
         }
 
 
-        public void Hide()
+        public virtual void Hide()
         {
             _bulletDamageHandler.Dispose();
-            _abilityDamage.Dispose();
+            //_abilityDamage.Dispose();
             SetIsShoot(false);
             gameObject.SetActive(false);
         }
@@ -169,7 +170,7 @@ namespace Character.Enemy
         }
 
 
-        public void GetDamaged(int value)
+        public void GetDamage(int value)
         {
             Health -= value;
 

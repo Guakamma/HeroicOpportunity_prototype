@@ -7,8 +7,6 @@ namespace HeroicOpportunity.Character
 {
     public class CharacterModel : MonoBehaviour
     {
-        #region Fields
-
         [SerializeField]
         private Transform[] _gunRoots;
 
@@ -18,16 +16,22 @@ namespace HeroicOpportunity.Character
         [SerializeField] [Required]
         private HealthBar _healthBar;
 
-        #endregion
+        private ICharacter _character;
 
-
-
-        #region Properties
 
         public Transform[] GunRoots => _gunRoots;
         public Collider Collider => _collider;
         public HealthBar HealthBar => _healthBar;
 
-        #endregion
+        public void Initialize(ICharacter character)
+        {
+            _character = character;
+        }
+
+        public void GetDamage(int damage)
+        {
+            if (_character != null)
+                _character.GetDamage(damage);
+        }
     }
 }

@@ -10,23 +10,10 @@ namespace Services.Abilities
 {
     public class AbilitiesServicesImpl : IAbilitiesService
     {
-        #region Fields
-
         private readonly Dictionary<AbilityType, AbilityInfo> _heroInfos;
-
-        #endregion
-
-
-
-        #region Properties
 
         private AbilitiesData AbilitiesData => DataHub.Abilities;
 
-        #endregion
-
-
-
-        #region Class lifecycle
 
         public AbilitiesServicesImpl()
         {
@@ -37,19 +24,11 @@ namespace Services.Abilities
             }
         }
 
-        #endregion
-
-
-
-        #region IAbilitiesService
-
         public AbilityInfo[] GetAllAbilityInfos()
         {
             List<AbilityInfo> allAbilityInfos = _heroInfos.Values.ToList();
             allAbilityInfos.Sort((x, y) => x.Type.CompareTo(y.Type));
             return allAbilityInfos.ToArray();
         }
-
-        #endregion
     }
 }

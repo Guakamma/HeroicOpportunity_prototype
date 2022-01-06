@@ -1,7 +1,11 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using Character.Damage;
+using Character.Enemy;
 using DG.Tweening;
 using HeroicOpportunity.Character;
+using HeroicOpportunity.Data.Abilities;
 using HeroicOpportunity.Data.Heroes;
 using HeroicOpportunity.Game;
 using HeroicOpportunity.Gun;
@@ -11,6 +15,7 @@ using Input;
 using Services;
 using UniRx;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace Character.Hero
 {
@@ -96,9 +101,43 @@ namespace Character.Hero
                 })
                 .AddTo(this)
                 .AddTo(_disposables);
+            
+            ServicesHub.Events.Ability.AbilityUse
+                .Subscribe(UseDamageAbility)
+                .AddTo(this)
+                .AddTo(_disposables);
 
             BulletDamageHandler bulletDamageHandler = gameObject.AddComponent<BulletDamageHandler>();
             bulletDamageHandler.Initialize(characterModel.Collider, this);
+        }
+
+        private void UseDamageAbility(AbilityInfo abilityInfo)
+        {
+            RaycastHit[] hits = new RaycastHit[10];
+            Physics.RaycastNonAlloc(transform.position, transform.forward, hits, 50f);
+
+            List<CharacterModel> enemies = new List<CharacterModel>(1);
+            Transform enemyTransform;
+            foreach (RaycastHit hit in hits)
+            {
+                enemyTransform = hit.transform;
+                if (enemyTransform != null && enemyTransform.TryGetComponent(out CharacterModel enemy)) 
+                    enemies.Add(enemy);
+            }
+
+            float lastDistance = float.MaxValue;
+            CharacterModel enemyModel = enemies.First();
+            foreach (CharacterModel enemy in enemies)
+            {
+                float distance = enemy.transform.position.z - transform.position.z;
+                if (lastDistance > distance)
+                {
+                    lastDistance = distance; 
+                    enemyModel = enemy;
+                }
+            }
+            
+            enemyModel.GetDamage(abilityInfo.Damage);
         }
 
         private void Move()
@@ -206,7 +245,7 @@ namespace Character.Hero
         }
 
 
-        public void GetDamaged(int value)
+        public void GetDamage(int value)
         {
             Health -= value;
 
