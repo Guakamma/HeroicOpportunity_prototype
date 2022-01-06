@@ -1,18 +1,18 @@
+using System.Collections.Generic;
+using Character.Damage;
 using DG.Tweening;
+using HeroicOpportunity.Character;
 using HeroicOpportunity.Data.Heroes;
+using HeroicOpportunity.Game;
 using HeroicOpportunity.Gun;
-using HeroicOpportunity.Input;
-using HeroicOpportunity.Services;
 using HeroicOpportunity.Services.Events;
 using HeroicOpportunity.Services.Level;
-using System.Collections.Generic;
-using HeroicOpportunity.Game;
+using Input;
 using Services;
 using UniRx;
 using UnityEngine;
 
-
-namespace HeroicOpportunity.Character.Hero
+namespace Character.Hero
 {
     public class HeroController : MonoBehaviour, ICharacter
     {
@@ -33,11 +33,13 @@ namespace HeroicOpportunity.Character.Hero
         public bool IsRun => Speed > 0.0f;
 
 
-        private float Speed
+        public float Speed
         {
             get => _speed;
-            set => _speed = Mathf.Clamp(value, 0.0f, float.MaxValue);
+            private set => _speed = Mathf.Clamp(value, 0.0f, float.MaxValue);
         }
+
+        public float PositionZ => transform.position.z;
 
 
         private ILevelService LevelService => ServicesHub.Level;
@@ -70,11 +72,7 @@ namespace HeroicOpportunity.Character.Hero
             transform.position = position;
 
             Observable.EveryUpdate()
-                .Subscribe(_ =>
-                {
-                    Vector3 director = Vector3.forward;
-                    transform.Translate(director * Speed * Time.deltaTime);
-                })
+                .Subscribe(_ => Move())
                 .AddTo(_disposables)
                 .AddTo(this);
 
@@ -89,7 +87,7 @@ namespace HeroicOpportunity.Character.Hero
                 .Subscribe(OnStateChanged)
                 .AddTo(_disposables)
                 .AddTo(this);
-            
+
             ServicesHub.Events.Ability.AbilityComboDamage
                 .Subscribe((damage) =>
                 {
@@ -101,6 +99,12 @@ namespace HeroicOpportunity.Character.Hero
 
             BulletDamageHandler bulletDamageHandler = gameObject.AddComponent<BulletDamageHandler>();
             bulletDamageHandler.Initialize(characterModel.Collider, this);
+        }
+
+        private void Move()
+        {
+            Vector3 director = Vector3.forward;
+            transform.Translate(director * Speed * Time.deltaTime);
         }
 
         private void HealUp()
@@ -145,6 +149,9 @@ namespace HeroicOpportunity.Character.Hero
 
             Vector2 minMaxPosition = LevelService.ActiveLevel.MinMaxPositionX();
             targetPositionX = Mathf.Clamp(targetPositionX, minMaxPosition.x, minMaxPosition.y);
+            
+            ServicesHub.Events.Hero.ChangeDirection(direction, targetPositionX - transform.position.x);
+            
             transform.DOMoveX(targetPositionX, 0.3f)
                 .SetEase(Ease.InQuint);
         }

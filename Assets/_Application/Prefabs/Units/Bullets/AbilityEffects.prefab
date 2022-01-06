@@ -49,6 +49,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8943924810349478914}
     m_Modifications:
+    - target: {fileID: 3316797093478721447, guid: a1de531cc99b34ecca1ec119c8def119,
+        type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4017915829611195715, guid: a1de531cc99b34ecca1ec119c8def119,
         type: 3}
       propertyPath: m_RootOrder
@@ -108,6 +113,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: AOEEffect
+      objectReference: {fileID: 0}
+    - target: {fileID: 4769690513063869179, guid: a1de531cc99b34ecca1ec119c8def119,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7223214133416721274, guid: a1de531cc99b34ecca1ec119c8def119,
+        type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a1de531cc99b34ecca1ec119c8def119, type: 3}
@@ -184,6 +199,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: CritEffect
       objectReference: {fileID: 0}
+    - target: {fileID: 685376776107657454, guid: c9aa278341315415c89a334e870884ea,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2667736982901090067, guid: c9aa278341315415c89a334e870884ea,
+        type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c9aa278341315415c89a334e870884ea, type: 3}
 --- !u!4 &969567692482421213 stripped
@@ -199,10 +224,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8943924810349478914}
     m_Modifications:
+    - target: {fileID: 1330717007293414908, guid: 9c0422b89a804413aa02bf0ee0998376,
+        type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6227441464937833914, guid: 9c0422b89a804413aa02bf0ee0998376,
         type: 3}
       propertyPath: m_Name
       value: PiercingEffect
+      objectReference: {fileID: 0}
+    - target: {fileID: 6227441464937833914, guid: 9c0422b89a804413aa02bf0ee0998376,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7870192084208215675, guid: 9c0422b89a804413aa02bf0ee0998376,
         type: 3}
@@ -334,6 +369,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: LightningEffect
       objectReference: {fileID: 0}
+    - target: {fileID: 5475248560221795015, guid: 326476c5c86ea478d945e251fbbfa831,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5655060866640997033, guid: 326476c5c86ea478d945e251fbbfa831,
+        type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7387469040149061542, guid: 326476c5c86ea478d945e251fbbfa831,
+        type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 326476c5c86ea478d945e251fbbfa831, type: 3}
 --- !u!4 &7870232855678581730 stripped
@@ -349,10 +399,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8943924810349478914}
     m_Modifications:
+    - target: {fileID: 4243989766969317189, guid: 73f7a57475a10454ca0ea48abf5e8b16,
+        type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5601358678877605538, guid: 73f7a57475a10454ca0ea48abf5e8b16,
         type: 3}
       propertyPath: m_Name
       value: FreezeEffect
+      objectReference: {fileID: 0}
+    - target: {fileID: 5601358678877605538, guid: 73f7a57475a10454ca0ea48abf5e8b16,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8172731690014210774, guid: 73f7a57475a10454ca0ea48abf5e8b16,
         type: 3}
@@ -424,6 +484,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8943924810349478914}
     m_Modifications:
+    - target: {fileID: 2187818470990837813, guid: 076263e32c1ed44d89d921b2f019612d,
+        type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5456191685288566302, guid: 076263e32c1ed44d89d921b2f019612d,
         type: 3}
       propertyPath: m_RootOrder
@@ -484,6 +549,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: BloodLustEffect
       objectReference: {fileID: 0}
+    - target: {fileID: 6650649548330663632, guid: 076263e32c1ed44d89d921b2f019612d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 076263e32c1ed44d89d921b2f019612d, type: 3}
 --- !u!4 &9021475099516506971 stripped
@@ -499,10 +569,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8943924810349478914}
     m_Modifications:
+    - target: {fileID: 1734140758425912976, guid: 33490e887b6fd4a07b8c52c745c45eeb,
+        type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6294241785401534665, guid: 33490e887b6fd4a07b8c52c745c45eeb,
         type: 3}
       propertyPath: m_Name
       value: FirerateEffect
+      objectReference: {fileID: 0}
+    - target: {fileID: 6294241785401534665, guid: 33490e887b6fd4a07b8c52c745c45eeb,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8508965877408246863, guid: 33490e887b6fd4a07b8c52c745c45eeb,
         type: 3}
@@ -629,10 +709,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3246895126538884852, guid: f6217be8dd9634e619129fd73c3ee813,
+        type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7988464234789255835, guid: f6217be8dd9634e619129fd73c3ee813,
         type: 3}
       propertyPath: m_Name
       value: DamageEffect
+      objectReference: {fileID: 0}
+    - target: {fileID: 7988464234789255835, guid: f6217be8dd9634e619129fd73c3ee813,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f6217be8dd9634e619129fd73c3ee813, type: 3}
@@ -649,10 +739,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8943924810349478914}
     m_Modifications:
+    - target: {fileID: 199097467437329718, guid: 32b1ba9252684447ead4e6b4537c2b50,
+        type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4282064346630588986, guid: 32b1ba9252684447ead4e6b4537c2b50,
         type: 3}
       propertyPath: m_Name
       value: IncreasableDamageEffect
+      objectReference: {fileID: 0}
+    - target: {fileID: 4282064346630588986, guid: 32b1ba9252684447ead4e6b4537c2b50,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6912121784910523187, guid: 32b1ba9252684447ead4e6b4537c2b50,
         type: 3}
@@ -709,6 +809,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7601404345527993771, guid: 32b1ba9252684447ead4e6b4537c2b50,
+        type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 32b1ba9252684447ead4e6b4537c2b50, type: 3}
 --- !u!4 &1137318418703496643 stripped
@@ -724,6 +829,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8943924810349478914}
     m_Modifications:
+    - target: {fileID: 456636407004068656, guid: 96efee0f6eb674d8abb2813ce2ccbc05,
+        type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 456636407004068657, guid: 96efee0f6eb674d8abb2813ce2ccbc05,
         type: 3}
       propertyPath: m_RootOrder
@@ -784,6 +894,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PoisonEffect
       objectReference: {fileID: 0}
+    - target: {fileID: 456636407004068670, guid: 96efee0f6eb674d8abb2813ce2ccbc05,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 96efee0f6eb674d8abb2813ce2ccbc05, type: 3}
 --- !u!4 &7355635176314934193 stripped
@@ -803,6 +918,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: PerShotEffect
+      objectReference: {fileID: 0}
+    - target: {fileID: 1845583877247721656, guid: 756b4bc3c581a4c48a55af6d4eeceb77,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1953995289514963187, guid: 756b4bc3c581a4c48a55af6d4eeceb77,
         type: 3}
@@ -859,6 +979,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3464268573766843471, guid: 756b4bc3c581a4c48a55af6d4eeceb77,
+        type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 756b4bc3c581a4c48a55af6d4eeceb77, type: 3}
 --- !u!4 &9209022937888794398 stripped
@@ -874,6 +999,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8943924810349478914}
     m_Modifications:
+    - target: {fileID: 1661376467439917146, guid: 4cfa3863965294febafc347007a6f175,
+        type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1661376467439917147, guid: 4cfa3863965294febafc347007a6f175,
         type: 3}
       propertyPath: m_RootOrder
@@ -933,6 +1063,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: RangeEffect
+      objectReference: {fileID: 0}
+    - target: {fileID: 1661376467439917148, guid: 4cfa3863965294febafc347007a6f175,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4cfa3863965294febafc347007a6f175, type: 3}

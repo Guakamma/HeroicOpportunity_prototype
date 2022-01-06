@@ -16,11 +16,13 @@ MonoBehaviour:
   _characterModel: {fileID: 5021095655646654622, guid: 1a83f3e39d9da4f1ba4885e9d05b20c4,
     type: 3}
   _heroDistance: 20
+  _speed: 6
   _damage: 2
   _health: 20
+  _slowDownFactor: 0.7
   _gunInfo:
     _fireRate: 1.5
     _bulletPrefab: {fileID: -7586887397115624315, guid: 9623de0c271f84d8a919c2cc603a204a,
       type: 3}
-    _bulletSpeed: 1.05
+    _bulletSpeed: 3
     _bulletLifetime: 5

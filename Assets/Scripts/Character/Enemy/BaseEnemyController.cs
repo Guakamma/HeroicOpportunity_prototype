@@ -1,12 +1,10 @@
 using System;
 using System.Collections.Generic;
+using Character.Damage;
 using Data.Enemies;
 using HeroicOpportunity.Character;
-using HeroicOpportunity.Data.Enemies;
 using HeroicOpportunity.Game;
 using HeroicOpportunity.Gun;
-using HeroicOpportunity.Services.Hero;
-using HeroicOpportunity.Services.Level;
 using Services;
 using UniRx;
 using UnityEngine;
@@ -15,20 +13,22 @@ namespace Character.Enemy
 {
     public class BaseEnemyController : MonoBehaviour, ICharacter
     {
+        protected List<GunsController> _gunsControllers;
         private CompositeDisposable _disposables;
-        private int _health;
         private CharacterModel _characterModel;
-        private List<GunsController> _gunsControllers;
         private BulletDamageHandler _bulletDamageHandler;
         private AbilityDamage _abilityDamage;
+        
+        private int _health;
 
 
+        private bool CanMove => gameObject.activeSelf && GameManager.Instance.CurrentState == GameStateType.InGame;
         public EnemyInfo EnemyInfo { get; private set; }
 
         public bool IsDied => Health <= 0;
 
         
-        public void Initialize(EnemyInfo enemyInfo)
+        public virtual void Initialize(EnemyInfo enemyInfo)
         {
             EnemyInfo = enemyInfo;
             _disposables = new CompositeDisposable();
@@ -39,28 +39,17 @@ namespace Character.Enemy
             _characterModel.HealthBar.Initialize(this, EnemyInfo.Health);
 
             _gunsControllers = new List<GunsController>();
-            foreach (var r in _characterModel.GunRoots)
+            foreach (var root in _characterModel.GunRoots)
             {
-                GunsController gunsController = r.gameObject.AddComponent<GunsController>();
+                GunsController gunsController = root.gameObject.AddComponent<GunsController>();
                 gunsController.Initialize(EnemyInfo.GunInfo, this);
                 _gunsControllers.Add(gunsController);
             }
-
-
-            ILevelService levelService = ServicesHub.Level;
-            IHeroService heroService = ServicesHub.Hero;
-
-            Vector3 position = transform.position;
-            position.x = levelService.ActiveLevel.GetMiddlePositionX();
-            transform.position = position;
+            
+            SetPositionFromHero();
 
             Observable.EveryUpdate()
-                .Subscribe(_ =>
-                {
-                    Vector3 targetPosition = transform.position;
-                    targetPosition.z = heroService.ActiveHero.transform.position.z + EnemyInfo.HeroDistance;
-                    transform.position = targetPosition;
-                })
+                .Subscribe(_ => Move(enemyInfo))
                 .AddTo(this);
             
             GameStateController.OnStateChanged
@@ -72,8 +61,17 @@ namespace Character.Enemy
             _abilityDamage = gameObject.AddComponent<AbilityDamage>();
         }
 
+        protected virtual void Move(EnemyInfo enemyInfo)
+        {
+            if (!CanMove)
+                return;
 
-        public void Dispose()
+            float speed = enemyInfo.IsBoss ? ServicesHub.Hero.ActiveHero.Speed : enemyInfo.Speed;
+            transform.Translate(Vector3.back * speed * Time.deltaTime);
+        }
+
+
+        public virtual void Dispose()
         {
             Hide();
 
@@ -94,10 +92,17 @@ namespace Character.Enemy
                     ServicesHub.Events.Enemy.ShowEnemy(this);
                     gameObject.SetActive(true);
                     _bulletDamageHandler.Initialize(_characterModel.Collider, this);
-                    _abilityDamage.Initialize(this);
-                    SetIsShoot(true);
+                    _abilityDamage.Initialize(this);//_characterModel.Collider, this);
+                    SetPositionFromHero();
                 })
                 .AddTo(this);
+        }
+
+        private void SetPositionFromHero()
+        {
+            Vector3 position = transform.position;
+            position = new Vector3(position.x, position.y, ServicesHub.Hero.ActiveHero.PositionZ + EnemyInfo.HeroDistance); 
+            transform.position = position;
         }
 
 
@@ -117,12 +122,14 @@ namespace Character.Enemy
         }
 
 
-        private void ChangePosition() { }
-
-
-        private void OnStateChanged(GameStateType gameStateType)
+        private void ChangePosition()
         {
-            Debug.Log(gameStateType.ToString());
+            
+        }
+
+
+        protected virtual void OnStateChanged(GameStateType gameStateType)
+        {
             switch (gameStateType)
             {
                 case GameStateType.InGame:
@@ -135,7 +142,7 @@ namespace Character.Enemy
         }
 
 
-        private void SetIsShoot(bool value)
+        public void SetIsShoot(bool value)
         {
             foreach (var g in _gunsControllers)
             {

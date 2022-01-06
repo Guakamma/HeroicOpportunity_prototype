@@ -1,14 +1,15 @@
+using System.Collections.Generic;
+using Data.Levels;
 using HeroicOpportunity.Data;
 using HeroicOpportunity.Data.Levels;
-using HeroicOpportunity.Level;
 using HeroicOpportunity.Game;
+using HeroicOpportunity.Services.Level;
 using HeroicOpportunity.Services.Prefs;
-using System.Collections.Generic;
-using HeroicOpportunity.Input;
+using Input;
+using Level;
 using UnityEngine;
 
-
-namespace HeroicOpportunity.Services.Level
+namespace Services.Level
 {
     public class LevelServiceImpl : ILevelService
     {

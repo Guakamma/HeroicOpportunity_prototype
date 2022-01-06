@@ -21,6 +21,10 @@ namespace Data.Enemies
         [SerializeField]
         [MinValue(0.0f)]
         private float _heroDistance;
+        
+        [SerializeField]
+        [MinValue(0.0f)]
+        private float _speed;
 
         [SerializeField]
         [MinValue(0.0f)]
@@ -38,8 +42,7 @@ namespace Data.Enemies
         public EnemyType EnemyType => _enemyType;
         public CharacterModel CharacterModel => _characterModel;
         public float HeroDistance => _heroDistance;
-
-
+        public float Speed => _speed;
         public int Damage => _damage;
         public int Health => _health;
         public GunInfo GunInfo => _gunInfo;

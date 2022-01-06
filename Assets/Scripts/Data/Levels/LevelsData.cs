@@ -1,6 +1,7 @@
 using HeroicOpportunity.Paths;
 using Sirenix.OdinInspector;
 using System.Linq;
+using Data.Levels;
 using UnityEngine;
 
 #if UNITY_EDITOR

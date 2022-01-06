@@ -34,7 +34,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 12
-      Data: 4
+      Data: 2
     - Name: 
       Entry: 7
       Data: 
@@ -52,34 +52,10 @@ MonoBehaviour:
       Data: 
     - Name: $k
       Entry: 1
-      Data: Boss_2
-    - Name: $v
-      Entry: 1
-      Data: Data/Enemies/Info/Boss/Data_Enemies_Info_Boss_2
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 1
       Data: Default_1
     - Name: $v
       Entry: 1
       Data: Data/Enemies/Info/Default/Data_Enemies_Info_Default_1
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 
-    - Name: $k
-      Entry: 1
-      Data: Default_2
-    - Name: $v
-      Entry: 1
-      Data: Data/Enemies/Info/Default/Data_Enemies_Info_Default_2
     - Name: 
       Entry: 8
       Data: 

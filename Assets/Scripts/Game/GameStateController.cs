@@ -13,6 +13,8 @@ namespace HeroicOpportunity.Game
         private readonly Dictionary<GameStateType, IState> _stateByType;
         private IState _previousState;
 
+        public GameStateType CurrentState { get; private set; }
+
 
         public GameStateController()
         {
@@ -34,6 +36,7 @@ namespace HeroicOpportunity.Game
             }
 
             StateChanged.OnNext(gameStateType);
+            CurrentState = gameStateType;
 
             _previousState = _stateByType[gameStateType];
             _previousState.OnEnter();

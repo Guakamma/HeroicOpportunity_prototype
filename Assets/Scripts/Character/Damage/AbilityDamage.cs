@@ -1,10 +1,9 @@
-using HeroicOpportunity.Services;
+using HeroicOpportunity.Character;
 using Services;
 using UniRx;
 using UnityEngine;
 
-
-namespace HeroicOpportunity.Character
+namespace Character.Damage
 {
     public class AbilityDamage : MonoBehaviour
     {
@@ -25,10 +24,10 @@ namespace HeroicOpportunity.Character
             // _disposables = new CompositeDisposable();
             _character = character;
 
-            ServicesHub.Events.Ability.AbilityDamage
-                .Subscribe(a => _character.GetDamaged(a.Damage))
-                .AddTo(this)
-                .AddTo(_disposables);
+            // ServicesHub.Events.Ability.AbilityDamage
+            //     .Subscribe(a => _character.GetDamaged(a.Damage))
+            //     .AddTo(this)
+            //     .AddTo(_disposables);
 
             ServicesHub.Events.Ability.AbilityComboDamage
                 .Subscribe(damage => _character.GetDamaged(damage))

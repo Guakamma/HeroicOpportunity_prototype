@@ -16,7 +16,6 @@ MonoBehaviour:
     type: 3}
   _roadSize: 10
   _quantityRoads: 3
-  _enemyIds:
-  - Default_1
-  - Default_1
-  - Default_1
+  _enemies: 0100000001000000010000000100000001000000
+  _spawnRate: 8
+  _duration: 25

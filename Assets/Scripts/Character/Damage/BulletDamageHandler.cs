@@ -1,10 +1,10 @@
+using HeroicOpportunity.Character;
 using HeroicOpportunity.Gun;
 using UniRx;
 using UniRx.Triggers;
 using UnityEngine;
 
-
-namespace HeroicOpportunity.Character
+namespace Character.Damage
 {
     public class BulletDamageHandler : MonoBehaviour
     {
@@ -19,10 +19,10 @@ namespace HeroicOpportunity.Character
 
         #region Public methods
 
-        public void Initialize(Collider collider, ICharacter character)
+        public void Initialize(Collider heroCollider, ICharacter character)
         {
             _character = character;
-            collider.OnTriggerEnterAsObservable()
+            heroCollider.OnTriggerEnterAsObservable()
                 .Select(c => c.GetComponent<Bullet>())
                 .Where(b => b != null)
                 .Where(b => b.Sender != _character)

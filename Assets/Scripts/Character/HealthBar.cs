@@ -48,7 +48,11 @@ namespace Character
                 {
                     SetScrollValue(health, maxHealth);
                     SetHealthCounter(health);
-                    PlayGetDamageEffect(character.Health);
+
+                    if (_savedHealth < character.Health)
+                        _savedHealth = character.Health;
+                    else
+                        PlayGetDamageEffect(character.Health);
                 })
                 .AddTo(this);
 

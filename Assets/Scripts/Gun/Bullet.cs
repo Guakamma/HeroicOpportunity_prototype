@@ -49,16 +49,6 @@ namespace HeroicOpportunity.Gun
                 .Subscribe(_ => Dispose())
                 .AddTo(this)
                 .AddTo(_disposables);
-
-            /*
-            _collider.OnTriggerEnterAsObservable()
-                .Subscribe(c =>
-                {
-                    Dispose();
-                })
-                .AddTo(this)
-                .AddTo(_disposables);
-            // */
         }
 
         #endregion

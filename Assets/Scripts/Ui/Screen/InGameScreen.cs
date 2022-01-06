@@ -16,6 +16,9 @@ namespace HeroicOpportunity.Ui
 
         [SerializeField] [Required]
         private Button _restartButton;
+        
+        [SerializeField] [Required]
+        private Button _skipLevelButton;
 
         [SerializeField] [Required]
         private RectTransform _abilitiesRoot;
@@ -34,6 +37,10 @@ namespace HeroicOpportunity.Ui
             _restartButton.OnClickAsObservable()
                 .Subscribe(_ => RestartButton_OnClick())
                 .AddTo(this);
+            
+            _skipLevelButton.OnClickAsObservable()
+                .Subscribe(_ => SkipLevel())
+                .AddTo(this);
 
             AbilityCardInGame abilityCardPrefab = Resources.Load<AbilityCardInGame>(Paths.Ui.AbilitiesCardInGame);
             foreach (AbilityInfo abilityInfo in ServicesHub.Abilities.GetAllAbilityInfos())
@@ -43,6 +50,11 @@ namespace HeroicOpportunity.Ui
             }
 
             gameObject.AddComponent<AbilityCombo>().Initialize(_abilityComboRoot);
+        }
+
+        private void SkipLevel()
+        {
+            ServicesHub.Level.ActiveLevel.LevelWin();
         }
 
         #endregion

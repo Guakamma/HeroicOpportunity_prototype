@@ -31,6 +31,7 @@ namespace HeroicOpportunity.Game
         public Transform GameRoot => _gameRoot;
         public Camera MainCamera => _mainCamera;
         public UiManager UIManager => _uiManager;
+        public GameStateType CurrentState => _stateController.CurrentState;
 
         #endregion
 

@@ -2,17 +2,19 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Character.Enemy;
-using HeroicOpportunity.Character.Hero;
-using HeroicOpportunity.Data.Levels;
+using Character.Hero;
+using Data.Levels;
+using HeroicOpportunity.Data.Enemies;
 using HeroicOpportunity.Game;
-using HeroicOpportunity.Services;
+using HeroicOpportunity.Level;
 using HeroicOpportunity.Services.Events;
 using Services;
 using UniRx;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 
-namespace HeroicOpportunity.Level
+namespace Level
 {
     public class LevelController : MonoBehaviour
     {
@@ -26,7 +28,8 @@ namespace HeroicOpportunity.Level
         private List<Chunk> _chunks;
         private List<Chunk> _chunksPool;
         private List<BaseEnemyController> _enemies;
-
+        private CompositeDisposable _spawnDisposable;
+        
         #endregion
 
 
@@ -34,6 +37,7 @@ namespace HeroicOpportunity.Level
         #region Properties
 
         public BaseEnemyController ActiveEnemy => _enemies.FirstOrDefault();
+        public bool IsBossLevel => _levelInfo.IsBossLevel;
 
         #endregion
 
@@ -43,6 +47,7 @@ namespace HeroicOpportunity.Level
         public void Initialize(LevelInfo levelInfo)
         {
             _levelInfo = levelInfo;
+            _spawnDisposable = new CompositeDisposable();
 
             IEventsService eventsService = ServicesHub.Events;
             eventsService.Hero.HeroCreated
@@ -50,18 +55,13 @@ namespace HeroicOpportunity.Level
                 .AddTo(this);
 
             eventsService.Enemy.EnemyDied
-                .Subscribe(e =>
-                {
-                    _enemies.Remove(e);
-                    if (_enemies.Count <= 0)
-                    {
-                        LevelWin();
-                    }
-                    else
-                    {
-                        _enemies.First().Show();
-                    }
-                })
+                .Subscribe(OnEnemyDied)
+                .AddTo(this);
+
+            
+            
+            GameStateController.OnStateChanged
+                .Subscribe(OnStateChanged)
                 .AddTo(this);
 
             _chunks = new List<Chunk>();
@@ -75,6 +75,52 @@ namespace HeroicOpportunity.Level
                 .Subscribe(CheckChunks)
                 .AddTo(this);
 
+        }
+        
+        private void OnStateChanged(GameStateType gameStateType)
+        {
+            if (gameStateType == GameStateType.InGame)
+            {
+                if (!_levelInfo.IsBossLevel)
+                {
+                    Observable.Timer(TimeSpan.FromSeconds(_levelInfo.Duration))
+                        .Subscribe(_ => LevelWin())
+                        .AddTo(this);
+                }
+
+                float startDelay = _levelInfo.IsBossLevel ? 0.5f : _levelInfo.SpawnRate;
+                Observable.Timer(TimeSpan.FromSeconds(startDelay), TimeSpan.FromSeconds(_levelInfo.SpawnRate))
+                    .Subscribe(_ => SpawnTrashEnemy())
+                    .AddTo(this);
+            }
+        }
+
+        private void StopSpawnTrash()
+        {
+            _spawnDisposable.Dispose();
+        }
+
+        private void SpawnTrashEnemy()
+        {
+            LevelController level = ServicesHub.Level.ActiveLevel;
+            Vector3 spawnPosition = transform.position;
+            spawnPosition.x = level.GetRandomRoadX();
+            BaseEnemyController enemy = ServicesHub.Enemies.CreateEnemy(EnemyType.Default, level.transform, spawnPosition);
+            enemy.Show();
+            enemy.SetIsShoot(true);
+        }
+
+        private void OnEnemyDied(BaseEnemyController enemy)
+        {
+            _enemies.Remove(enemy);
+            if (_enemies.Count <= 0)
+            {
+                LevelWin();
+            }
+            else
+            {
+                _enemies.First().Show();
+            }
         }
 
         public float GetMiddlePositionX()
@@ -225,7 +271,7 @@ namespace HeroicOpportunity.Level
                 DestroyEnemies();
             }
 
-            string[] enemyIds = _levelInfo.EnemyIds;
+            EnemyType[] enemyIds = _levelInfo.EnemyIds;
             for (int i = 0; i < enemyIds.Length; i++)
             {
                 BaseEnemyController enemy = ServicesHub.Enemies.CreateEnemy(enemyIds[i], transform);
@@ -242,6 +288,21 @@ namespace HeroicOpportunity.Level
             }
         }
 
+        private float GetRandomRoadX()
+        {
+            int roadIndex = Random.Range(1, 4);
+            switch (roadIndex)
+            {
+                case 1:
+                    return GetMiddlePositionX() - GetStepX();
+
+                case 3:
+                    return GetMiddlePositionX() + GetStepX();
+
+                default:
+                    return GetMiddlePositionX();
+            }
+        }
 
         private void DestroyEnemies()
         {
@@ -254,8 +315,9 @@ namespace HeroicOpportunity.Level
         }
 
 
-        private void LevelWin()
+        public void LevelWin()
         {
+            StopSpawnTrash();
             ServicesHub.Level.IncrementLevelNumber();
             GameManager.Instance.SetGameState(GameStateType.Result);
         }

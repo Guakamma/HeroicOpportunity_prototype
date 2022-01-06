@@ -1,4 +1,4 @@
-using HeroicOpportunity.Character.Hero;
+using Character.Hero;
 using UnityEngine;
 
 

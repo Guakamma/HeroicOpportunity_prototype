@@ -1,11 +1,9 @@
-using HeroicOpportunity.Services;
 using HeroicOpportunity.Services.Events;
 using Services;
 using UniRx;
 using UnityEngine;
 
-
-namespace HeroicOpportunity.Input
+namespace Input
 {
     public class SwipeHandler : MonoBehaviour
     {
@@ -49,8 +47,6 @@ namespace HeroicOpportunity.Input
                     _isSendEvent = true;
                 })
                 .AddTo(this);
-
-
         }
     }
 }

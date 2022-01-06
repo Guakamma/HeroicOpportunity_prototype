@@ -1,4 +1,4 @@
-namespace HeroicOpportunity.Input
+namespace Input
 {
     public enum Direction
     {

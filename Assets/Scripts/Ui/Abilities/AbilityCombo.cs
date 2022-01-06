@@ -3,6 +3,7 @@ using System.Linq;
 using Character.Enemy;
 using Data.Abilities;
 using HeroicOpportunity.Data.Abilities;
+using HeroicOpportunity.Game;
 using HeroicOpportunity.Ui;
 using Services;
 using Services.Abilities;
@@ -25,9 +26,13 @@ namespace Ui.Abilities
             DisposeCards();
             CheckEnemy(ServicesHub.Level.ActiveLevel.ActiveEnemy);
 
-            ServicesHub.Events.Enemy
-                .EnemyShowed
-                .Subscribe(CheckEnemy)
+            // ServicesHub.Events.Enemy
+            //     .EnemyShowed
+            //     .Subscribe(CheckEnemy)
+            //     .AddTo(this);
+            
+            GameStateController.OnStateChanged
+                .Subscribe(OnStateChanged)
                 .AddTo(this);
 
             ServicesHub.Events.Ability.AbilityDamage
@@ -36,16 +41,25 @@ namespace Ui.Abilities
                 .AddTo(this);
         }
 
+        private void OnStateChanged(GameStateType type)
+        {
+            CheckEnemy(null);
+        }
+
         private void CheckComboComplete(AbilityInfo abilityInfo)
         {
             AbilityCard firstCard = _abilityCards.FirstOrDefault(a => (!_comboInfo.IsRandomActive || a.Type == abilityInfo.Type) && a.IsFade);
-            
-            if (firstCard == null)
-                return;
 
-            if (firstCard.Id == abilityInfo.Id)
+            if (firstCard != null && firstCard.Id == abilityInfo.Id)
             {
                 firstCard.SetFade(0.0f);
+            }
+            else
+            {
+                foreach (var a in _abilityCards) 
+                    a.SetFade(1.0f);
+                
+                return;
             }
 
             if (_abilityCards.All(c => !c.IsFade))
@@ -60,7 +74,7 @@ namespace Ui.Abilities
 
         private void CheckEnemy(BaseEnemyController enemyController)
         {
-            if (enemyController.EnemyInfo.IsBoss)
+            if (ServicesHub.Level.ActiveLevel.IsBossLevel)
             {
                 if (_comboInfo != null)
                     DisposeCards();
