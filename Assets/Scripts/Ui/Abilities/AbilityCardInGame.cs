@@ -38,8 +38,11 @@ namespace Ui.Abilities
                 .AddTo(this);
         }
 
-        private void Reload()
+        public void Reload()
         {
+            _abilityCard.Fade.DOKill();
+            _abilityCard.CooldownTimer.DOKill();
+            
             _abilityCard.SetFade(1.0f);
             _button.interactable = false;
             _abilityCard.Fade.DOFillAmount(0.0f, _abilityInfo.ReloadTime)

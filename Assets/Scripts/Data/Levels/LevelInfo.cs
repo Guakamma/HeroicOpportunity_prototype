@@ -1,5 +1,4 @@
 using System.Linq;
-using HeroicOpportunity.Data;
 using HeroicOpportunity.Data.Enemies;
 using HeroicOpportunity.Level;
 using Sirenix.OdinInspector;

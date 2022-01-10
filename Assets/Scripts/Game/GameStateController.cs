@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
+using Game.State;
+using HeroicOpportunity.Game;
 using UniRx;
 
-
-namespace HeroicOpportunity.Game
+namespace Game
 {
     public class GameStateController
     {

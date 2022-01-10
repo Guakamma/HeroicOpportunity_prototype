@@ -1,7 +1,7 @@
+using HeroicOpportunity.Game;
 using HeroicOpportunity.Ui;
 
-
-namespace HeroicOpportunity.Game
+namespace Game.State
 {
     public class InGameState : IState
     {

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Character.Damage;
 using Data.Enemies;
+using Game;
 using HeroicOpportunity.Character;
 using HeroicOpportunity.Game;
 using HeroicOpportunity.Gun;
@@ -17,7 +18,6 @@ namespace Character.Enemy
         private CompositeDisposable _disposables;
         private CharacterModel _characterModel;
         private BulletDamageHandler _bulletDamageHandler;
-        //private AbilityDamage _abilityDamage;
         
         private int _health;
 
@@ -59,7 +59,6 @@ namespace Character.Enemy
                 .AddTo(this);
 
             _bulletDamageHandler = gameObject.AddComponent<BulletDamageHandler>();
-            //_abilityDamage = gameObject.AddComponent<AbilityDamage>();
         }
 
         protected virtual void Move(EnemyInfo enemyInfo)
@@ -93,7 +92,6 @@ namespace Character.Enemy
                     ServicesHub.Events.Enemy.ShowEnemy(this);
                     gameObject.SetActive(true);
                     _bulletDamageHandler.Initialize(_characterModel.Collider, this);
-                    //_abilityDamage.Initialize(_characterModel.Collider, this);
                     SetPositionFromHero();
                 })
                 .AddTo(this);
@@ -110,7 +108,6 @@ namespace Character.Enemy
         public virtual void Hide()
         {
             _bulletDamageHandler.Dispose();
-            //_abilityDamage.Dispose();
             SetIsShoot(false);
             gameObject.SetActive(false);
         }

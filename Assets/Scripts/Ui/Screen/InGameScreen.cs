@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+using Game;
 using HeroicOpportunity.Data.Abilities;
 using HeroicOpportunity.Game;
 using Services;
@@ -12,8 +15,6 @@ namespace HeroicOpportunity.Ui
 {
     public class InGameScreen : Screen
     {
-        #region Fields
-
         [SerializeField] [Required]
         private Button _restartButton;
         
@@ -26,14 +27,13 @@ namespace HeroicOpportunity.Ui
         [SerializeField] [Required]
         private RectTransform _abilityComboRoot;
 
-        #endregion
+        private List<AbilityCardInGame> _abilities;
 
-
-
-        #region Unity lifecycle
 
         private void Awake()
         {
+            _abilities = new List<AbilityCardInGame>();
+            
             _restartButton.OnClickAsObservable()
                 .Subscribe(_ => RestartButton_OnClick())
                 .AddTo(this);
@@ -47,9 +47,25 @@ namespace HeroicOpportunity.Ui
             {
                 AbilityCardInGame abilityCard = Instantiate(abilityCardPrefab, _abilitiesRoot);
                 abilityCard.Initialize(abilityInfo);
+                _abilities.Add(abilityCard);
             }
 
             gameObject.AddComponent<AbilityCombo>().Initialize(_abilityComboRoot);
+            
+            GameStateController.OnStateChanged
+                .Subscribe(OnStateChanged)
+                .AddTo(this);
+        }
+
+        private void OnStateChanged(GameStateType gameStateType)
+        {
+            if (gameStateType == GameStateType.InGame)
+            {
+                foreach (AbilityCardInGame ability in _abilities)
+                {
+                    ability.Reload();
+                }
+            }
         }
 
         private void SkipLevel()
@@ -57,17 +73,9 @@ namespace HeroicOpportunity.Ui
             ServicesHub.Level.ActiveLevel.LevelWin();
         }
 
-        #endregion
-
-
-
-        #region Private methods
-
         private void RestartButton_OnClick()
         {
             GameManager.Instance.SetGameState(GameStateType.Restart);
         }
-
-        #endregion
     }
 }

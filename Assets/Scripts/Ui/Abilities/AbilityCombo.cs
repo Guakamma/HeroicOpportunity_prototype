@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Character.Enemy;
 using Data.Abilities;
+using Game;
 using HeroicOpportunity.Data.Abilities;
 using HeroicOpportunity.Game;
 using HeroicOpportunity.Ui;

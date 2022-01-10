@@ -1,3 +1,4 @@
+using Game;
 using HeroicOpportunity.Ui;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -7,8 +8,6 @@ namespace HeroicOpportunity.Game
 {
     public class GameManager : SingletonMonoBehaviour<GameManager>
     {
-        #region Fields
-
         public const string StartupScene = "Startup";
 
         [SerializeField] [Required]
@@ -22,22 +21,15 @@ namespace HeroicOpportunity.Game
 
         private GameStateController _stateController;
 
-        #endregion
-
-
-
-        #region Properties
 
         public Transform GameRoot => _gameRoot;
         public Camera MainCamera => _mainCamera;
         public UiManager UIManager => _uiManager;
         public GameStateType CurrentState => _stateController.CurrentState;
-
-        #endregion
-
-
-
-        #region Unity lifecycle
+        
+        
+        public void SetGameState(GameStateType gameStateType) => _stateController.SetState(gameStateType);
+        
 
         private void Awake()
         {
@@ -48,20 +40,9 @@ namespace HeroicOpportunity.Game
             _stateController = new GameStateController();
         }
 
-
         private void Start()
         {
             SetGameState(GameStateType.MainMenu);
         }
-
-        #endregion
-
-
-
-        #region Public methods
-
-        public void SetGameState(GameStateType gameStateType) => _stateController.SetState(gameStateType);
-
-        #endregion
     }
 }

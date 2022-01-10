@@ -4,6 +4,7 @@ using System.Linq;
 using Character.Damage;
 using Character.Enemy;
 using DG.Tweening;
+using Game;
 using HeroicOpportunity.Character;
 using HeroicOpportunity.Data.Abilities;
 using HeroicOpportunity.Data.Heroes;
@@ -13,6 +14,7 @@ using HeroicOpportunity.Services.Events;
 using HeroicOpportunity.Services.Level;
 using Input;
 using Services;
+using Sirenix.Utilities;
 using UniRx;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -124,6 +126,9 @@ namespace Character.Hero
                 if (enemyTransform != null && enemyTransform.TryGetComponent(out CharacterModel enemy)) 
                     enemies.Add(enemy);
             }
+            
+            if (enemies.IsNullOrEmpty())
+                return;
 
             float lastDistance = float.MaxValue;
             CharacterModel enemyModel = enemies.First();
