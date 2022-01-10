@@ -4,9 +4,9 @@ using HeroicOpportunity.Data;
 using HeroicOpportunity.Data.Levels;
 using HeroicOpportunity.Game;
 using HeroicOpportunity.Services.Level;
-using HeroicOpportunity.Services.Prefs;
 using Input;
 using Level;
+using Services.Prefs;
 using UnityEngine;
 
 namespace Services.Level

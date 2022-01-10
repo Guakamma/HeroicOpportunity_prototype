@@ -1,4 +1,4 @@
-namespace HeroicOpportunity.Services.Prefs
+namespace Services.Prefs
 {
     public interface IPrefsService
     {

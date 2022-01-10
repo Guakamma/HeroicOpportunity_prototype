@@ -8,8 +8,6 @@ namespace HeroicOpportunity.Data.Heroes
     [CreateAssetMenu(fileName = PrefixName + "name", menuName = "Data/Heroes/Hero Info")]
     public class HeroInfo : ScriptableObject
     {
-        #region Fields
-
         private const string PrefixName = "Data_Heroes_Infos_";
 
         [SerializeField] [Required]
@@ -21,27 +19,19 @@ namespace HeroicOpportunity.Data.Heroes
         [SerializeField] [Min(0)]
         private int _damage;
 
-        [Space]
+        [Header("Gun Info")]
         [SerializeField]
         private GunInfo _gunInfo;
 
-        #endregion
 
-
-
-        #region Properties
 
         public string Id => name.Replace(PrefixName, string.Empty);
-
 
         public CharacterModel CharacterModel => _characterModel;
         public int Health => _health;
         public float Speed => _speed;
         public int Damage => _damage;
 
-
         public GunInfo GunInfo => _gunInfo;
-
-        #endregion
     }
 }

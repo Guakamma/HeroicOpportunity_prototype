@@ -93,6 +93,10 @@ namespace Level
                     .Subscribe(_ => SpawnTrashEnemy())
                     .AddTo(this);
             }
+            else
+            {
+                StopSpawnTrash();
+            }
         }
 
         private void StopSpawnTrash()
@@ -112,7 +116,9 @@ namespace Level
 
         private void OnEnemyDied(BaseEnemyController enemy)
         {
-            _enemies.Remove(enemy);
+            if (_enemies.Contains(enemy))
+                _enemies.Remove(enemy);
+
             if (_enemies.Count <= 0)
             {
                 LevelWin();

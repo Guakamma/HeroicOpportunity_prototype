@@ -1,19 +1,11 @@
 using UnityEngine;
 
-
-namespace HeroicOpportunity.Services.Prefs
+namespace Services.Prefs
 {
     public class PrefsServiceImpl : IPrefsService
     {
-        #region Private methods
-
         private static void Save() => PlayerPrefs.Save();
 
-        #endregion
-
-
-
-        #region IPrefsService
 
         public bool HasKey(string key) => PlayerPrefs.HasKey(key);
         public void DeleteKey(string key) => PlayerPrefs.DeleteKey(key);
@@ -47,7 +39,5 @@ namespace HeroicOpportunity.Services.Prefs
 
         public int GetInt(string key) => GetInt(key, 0);
         public int GetInt(string key, int defaultValue) => PlayerPrefs.GetInt(key, defaultValue);
-
-        #endregion
     }
 }
