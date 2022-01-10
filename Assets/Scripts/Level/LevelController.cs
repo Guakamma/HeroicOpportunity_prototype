@@ -4,6 +4,7 @@ using System.Linq;
 using Character.Enemy;
 using Character.Hero;
 using Data.Levels;
+using Game;
 using HeroicOpportunity.Data.Enemies;
 using HeroicOpportunity.Game;
 using HeroicOpportunity.Level;
