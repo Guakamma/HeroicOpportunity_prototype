@@ -7,25 +7,17 @@ namespace HeroicOpportunity.Ui
 {
     public class UiManager : MonoBehaviour
     {
-        #region Fields
-
         [SerializeField] [Required]
         private RectTransform _screensRoot;
 
         private Dictionary<ScreenType, Screen> _screens;
         private Screen _activeScreen;
 
-        #endregion
-
-
-
-        #region Public methods
 
         public void Initialize()
         {
             _screens = new Dictionary<ScreenType, Screen>();
         }
-
 
         public void ShowScreen(ScreenType screenType)
         {
@@ -37,12 +29,6 @@ namespace HeroicOpportunity.Ui
             _activeScreen = GetScreen(screenType);
             _activeScreen.Show();
         }
-
-        #endregion
-
-
-
-        #region Private methods
 
         private Screen GetScreen(ScreenType screenType)
         {
@@ -56,7 +42,5 @@ namespace HeroicOpportunity.Ui
             _screens.Add(screenType, screen);
             return screen;
         }
-
-        #endregion
     }
 }

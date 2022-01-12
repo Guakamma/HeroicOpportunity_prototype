@@ -30,7 +30,8 @@ namespace Level
         private List<Chunk> _chunksPool;
         private List<BaseEnemyController> _enemies;
         private CompositeDisposable _spawnDisposable;
-        
+        private List<float> _lastSpawnPositionsX;
+
         #endregion
 
 
@@ -49,6 +50,7 @@ namespace Level
         {
             _levelInfo = levelInfo;
             _spawnDisposable = new CompositeDisposable();
+            _lastSpawnPositionsX = new List<float>(3);
 
             IEventsService eventsService = ServicesHub.Events;
             eventsService.Hero.HeroCreated
@@ -59,8 +61,6 @@ namespace Level
                 .Subscribe(OnEnemyDied)
                 .AddTo(this);
 
-            
-            
             GameStateController.OnStateChanged
                 .Subscribe(OnStateChanged)
                 .AddTo(this);
@@ -109,7 +109,19 @@ namespace Level
         {
             LevelController level = ServicesHub.Level.ActiveLevel;
             Vector3 spawnPosition = transform.position;
-            spawnPosition.x = level.GetRandomRoadX();
+            
+            float randomX = level.GetRandomRoadX();
+            int tries = 0;
+            while (_lastSpawnPositionsX.Count > (0 + tries) && tries < 3 && 
+                   Mathf.Approximately(_lastSpawnPositionsX[_lastSpawnPositionsX.Count - (1 + tries)], randomX))
+            {
+                randomX = level.GetRandomRoadX();
+                tries++;
+            }
+
+            spawnPosition.x = randomX;
+            _lastSpawnPositionsX.Add(randomX);
+            
             BaseEnemyController enemy = ServicesHub.Enemies.CreateEnemy(EnemyType.Default, level.transform, spawnPosition);
             enemy.Show();
             enemy.SetIsShoot(true);
@@ -293,6 +305,7 @@ namespace Level
 
                 _enemies.Add(enemy);
             }
+            _lastSpawnPositionsX.Add(0);
         }
 
         private float GetRandomRoadX()

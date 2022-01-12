@@ -1,6 +1,4 @@
-using System;
 using System.Collections.Generic;
-using Game;
 using HeroicOpportunity.Data.Abilities;
 using HeroicOpportunity.Game;
 using Services;
@@ -26,6 +24,9 @@ namespace HeroicOpportunity.Ui
 
         [SerializeField] [Required]
         private RectTransform _abilityComboRoot;
+        
+        [SerializeField] [Required]
+        private GameObject _comboArrow;
 
         private List<AbilityCardInGame> _abilities;
 
@@ -50,21 +51,15 @@ namespace HeroicOpportunity.Ui
                 _abilities.Add(abilityCard);
             }
 
-            gameObject.AddComponent<AbilityCombo>().Initialize(_abilityComboRoot);
-            
-            GameStateController.OnStateChanged
-                .Subscribe(OnStateChanged)
-                .AddTo(this);
+            gameObject.AddComponent<AbilityCombo>().Initialize(_abilityComboRoot, _comboArrow);
         }
 
-        private void OnStateChanged(GameStateType gameStateType)
+        public override void Show()
         {
-            if (gameStateType == GameStateType.InGame)
+            base.Show();
+            foreach (AbilityCardInGame ability in _abilities)
             {
-                foreach (AbilityCardInGame ability in _abilities)
-                {
-                    ability.Reload();
-                }
+                ability.Reload();
             }
         }
 

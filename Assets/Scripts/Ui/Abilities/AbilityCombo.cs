@@ -10,6 +10,7 @@ using Services;
 using Services.Abilities;
 using UniRx;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Ui.Abilities
 {
@@ -18,11 +19,13 @@ namespace Ui.Abilities
         private RectTransform _cardsRoot;
         private readonly List<AbilityCard> _abilityCards = new List<AbilityCard>();
         private ComboInfo _comboInfo;
+        private GameObject _arrowImage; 
 
         
-        public void Initialize(RectTransform cardsRoot)
+        public void Initialize(RectTransform cardsRoot, GameObject arrowImage)
         {
             _cardsRoot = cardsRoot;
+            _arrowImage = arrowImage;
 
             DisposeCards();
             CheckEnemy(ServicesHub.Level.ActiveLevel.ActiveEnemy);
@@ -104,6 +107,7 @@ namespace Ui.Abilities
             }
 
             _cardsRoot.gameObject.SetActive(true);
+            _arrowImage.SetActive(!_comboInfo.IsRandomActive);
         }
 
 
