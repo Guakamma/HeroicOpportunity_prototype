@@ -20,7 +20,6 @@ namespace Data.Abilities
         [SerializeField]
         private bool _isRandomActive;
 
-
         public AbilityType[] AbilityComboSchedule => _abilityCombo;
         public int AbilityComboDamage => _abilityComboDamage;
         public bool IsRandomActive => _isRandomActive;

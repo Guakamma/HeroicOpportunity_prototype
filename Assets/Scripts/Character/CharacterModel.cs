@@ -1,9 +1,8 @@
-using Character;
+using HeroicOpportunity.Character;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-
-namespace HeroicOpportunity.Character
+namespace Character
 {
     public class CharacterModel : MonoBehaviour
     {
@@ -15,6 +14,9 @@ namespace HeroicOpportunity.Character
 
         [SerializeField] [Required]
         private HealthBar _healthBar;
+        
+        [SerializeField] [Required]
+        private CharacterFxHandler _fxHandler;
 
         private ICharacter _character;
 
@@ -22,10 +24,12 @@ namespace HeroicOpportunity.Character
         public Transform[] GunRoots => _gunRoots;
         public Collider Collider => _collider;
         public HealthBar HealthBar => _healthBar;
+        public CharacterFxHandler FxHandler => _fxHandler;
 
         public void Initialize(ICharacter character)
         {
             _character = character;
+            _fxHandler.Initialize();
         }
 
         public void GetDamage(int damage)

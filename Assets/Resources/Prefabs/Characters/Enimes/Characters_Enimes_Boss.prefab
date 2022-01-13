@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4066970842593808}
   - component: {fileID: 54888612580958166}
   - component: {fileID: 5021095655646654622}
+  - component: {fileID: 8792679305684391778}
   m_Layer: 11
   m_Name: Characters_Enimes_Boss
   m_TagString: Untagged
@@ -68,6 +69,20 @@ MonoBehaviour:
   - {fileID: 7126172932399913924}
   _collider: {fileID: 2143910615501471153}
   _healthBar: {fileID: 4855038657304779091}
+  _fxHandler: {fileID: 8792679305684391778}
+--- !u!114 &8792679305684391778
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1511114609136056}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65995e67c3924ea89e1d419c36dd45c4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _characterFxs: []
 --- !u!1 &1227979742345906103
 GameObject:
   m_ObjectHideFlags: 0

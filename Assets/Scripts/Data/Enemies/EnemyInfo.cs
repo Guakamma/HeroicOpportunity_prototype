@@ -1,3 +1,4 @@
+using Character;
 using HeroicOpportunity.Character;
 using HeroicOpportunity.Data;
 using HeroicOpportunity.Data.Enemies;

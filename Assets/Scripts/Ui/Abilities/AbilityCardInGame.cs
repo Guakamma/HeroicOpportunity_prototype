@@ -35,8 +35,8 @@ namespace Ui.Abilities
             _button.OnClickAsObservable()
                 .Subscribe(_ =>
                 {
-                    ServicesHub.Events.Ability.Damage(_abilityInfo);
                     Reload();
+                    ServicesHub.Events.Ability.Damage(_abilityInfo);
                 })
                 .AddTo(this);
         }
@@ -57,9 +57,6 @@ namespace Ui.Abilities
                 StopCoroutine(_reloadTimer);
                 _reloadTimer = null;
             }
-            
-            if (!gameObject.activeSelf)
-                gameObject.SetActive(true); 
             
             _reloadTimer = StartCoroutine(ReloadTimerRoutine(_abilityInfo.ReloadTime, 0));
         }

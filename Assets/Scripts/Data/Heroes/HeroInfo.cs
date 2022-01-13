@@ -1,9 +1,9 @@
-using HeroicOpportunity.Character;
+using Character;
+using HeroicOpportunity.Data;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-
-namespace HeroicOpportunity.Data.Heroes
+namespace Data.Heroes
 {
     [CreateAssetMenu(fileName = PrefixName + "name", menuName = "Data/Heroes/Hero Info")]
     public class HeroInfo : ScriptableObject
@@ -12,12 +12,18 @@ namespace HeroicOpportunity.Data.Heroes
 
         [SerializeField] [Required]
         private CharacterModel _characterModel;
+        
         [SerializeField] [Min(0)]
         private int _health;
+        
         [SerializeField] [Min(0.0f)]
         private float _speed;
+        
         [SerializeField] [Min(0)]
         private int _damage;
+
+        [SerializeField] [Required]
+        private float _comboProtectDuration;
 
         [Header("Gun Info")]
         [SerializeField]
@@ -31,6 +37,7 @@ namespace HeroicOpportunity.Data.Heroes
         public int Health => _health;
         public float Speed => _speed;
         public int Damage => _damage;
+        public float ComboProtectDuration => _comboProtectDuration;
 
         public GunInfo GunInfo => _gunInfo;
     }

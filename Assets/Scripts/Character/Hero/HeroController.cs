@@ -1,13 +1,11 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Character.Damage;
-using Character.Enemy;
+using Data.Heroes;
 using DG.Tweening;
 using Game;
 using HeroicOpportunity.Character;
 using HeroicOpportunity.Data.Abilities;
-using HeroicOpportunity.Data.Heroes;
 using HeroicOpportunity.Game;
 using HeroicOpportunity.Gun;
 using HeroicOpportunity.Services.Events;
@@ -17,28 +15,23 @@ using Services;
 using Sirenix.Utilities;
 using UniRx;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 namespace Character.Hero
 {
     public class HeroController : MonoBehaviour, ICharacter
     {
-        #region Fields
-
         private HeroInfo _heroInfo;
         private CompositeDisposable _disposables;
         private int _health;
         private float _speed;
         private List<GunsController> _gunsControllers;
+        private CharacterModel _characterModel;
+        private BulletDamageHandler _bulletDamageHandler;
 
-        #endregion
-
-
-
-        #region Properties
 
         public bool IsRun => Speed > 0.0f;
 
+        private bool CanTakeDamage { get; set; }
 
         public float Speed
         {
@@ -48,26 +41,23 @@ namespace Character.Hero
 
         public float PositionZ => transform.position.z;
 
-
         private ILevelService LevelService => ServicesHub.Level;
 
-        #endregion
-
-
-
-        #region Public methods
 
         public void Initialize(HeroInfo heroInfo)
         {
+            CanTakeDamage = true;
             _heroInfo = heroInfo;
             _disposables = new CompositeDisposable();
 
-            CharacterModel characterModel = Instantiate(_heroInfo.CharacterModel, Vector3.zero, Quaternion.identity, Root.transform);
+            _characterModel = Instantiate(_heroInfo.CharacterModel, Vector3.zero, Quaternion.identity, Root.transform);
+            _characterModel.Initialize(this);
+            
             Health = _heroInfo.Health;
-            characterModel.HealthBar.Initialize(this, _heroInfo.Health);
+            _characterModel.HealthBar.Initialize(this, _heroInfo.Health);
 
             _gunsControllers = new List<GunsController>();
-            foreach (var r in characterModel.GunRoots)
+            foreach (var r in _characterModel.GunRoots)
             {
                 GunsController gunsController = r.gameObject.AddComponent<GunsController>();
                 gunsController.Initialize(_heroInfo.GunInfo, this);
@@ -100,6 +90,8 @@ namespace Character.Hero
                 {
                     if (damage > 0)
                         HealUp();
+
+                    ProtectHeroWithShield();
                 })
                 .AddTo(this)
                 .AddTo(_disposables);
@@ -109,8 +101,15 @@ namespace Character.Hero
                 .AddTo(this)
                 .AddTo(_disposables);
 
-            BulletDamageHandler bulletDamageHandler = gameObject.AddComponent<BulletDamageHandler>();
-            bulletDamageHandler.Initialize(characterModel.Collider, this);
+            _bulletDamageHandler = gameObject.AddComponent<BulletDamageHandler>();
+            _bulletDamageHandler.Initialize(_characterModel.Collider, this);
+        }
+
+        private void ProtectHeroWithShield()
+        {
+            CanTakeDamage = false;
+            _characterModel.FxHandler.ShowFx(CharacterFxHandler.FxType.ProtectedShield, _heroInfo.ComboProtectDuration,
+                () => CanTakeDamage = true);
         }
 
         private void UseDamageAbility(AbilityInfo abilityInfo)
@@ -169,9 +168,6 @@ namespace Character.Hero
             Destroy(gameObject);
         }
 
-        #endregion
-
-
 
         #region Private methods
 
@@ -215,6 +211,8 @@ namespace Character.Hero
                     SetIsShoot(false);
                     break;
             }
+            
+            CanTakeDamage = gameStateType == GameStateType.InGame;
         }
 
 
@@ -236,7 +234,6 @@ namespace Character.Hero
         #endregion
 
 
-
         #region ICharacter
 
         public GameObject Root => gameObject;
@@ -252,6 +249,9 @@ namespace Character.Hero
 
         public void GetDamage(int value)
         {
+            if (!CanTakeDamage)
+                return;
+            
             Health -= value;
 
             if (_health <= 0)

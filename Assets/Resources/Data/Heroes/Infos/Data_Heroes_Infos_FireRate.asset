@@ -14,9 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _characterModel: {fileID: 7388860869451447330, guid: 9395a64d08b00ed4b948af700928a024,
     type: 3}
-  _health: 10
+  _health: 100
   _speed: 8
   _damage: 1
+  _comboProtectDuration: 3
   _gunInfo:
     _fireRate: 0.5
     _bulletPrefab: {fileID: 5516991096404026151, guid: 0f19dff71d189488590cef32f11159fb,

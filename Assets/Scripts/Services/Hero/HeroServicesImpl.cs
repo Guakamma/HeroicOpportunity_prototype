@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Character.Hero;
+using Data.Heroes;
 using HeroicOpportunity.Data;
 using HeroicOpportunity.Data.Heroes;
 using HeroicOpportunity.Services.Events;

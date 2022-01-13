@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Data.Heroes;
 using HeroicOpportunity.Paths;
 using Sirenix.OdinInspector;
 using UnityEngine;

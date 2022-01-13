@@ -8,16 +8,9 @@ namespace Character.Damage
 {
     public class BulletDamageHandler : MonoBehaviour
     {
-        #region Fields
-
         private CompositeDisposable _disposables = new CompositeDisposable();
         private ICharacter _character;
 
-        #endregion
-
-
-
-        #region Public methods
 
         public void Initialize(Collider heroCollider, ICharacter character)
         {
@@ -41,7 +34,5 @@ namespace Character.Damage
         {
             _disposables.Clear();
         }
-
-        #endregion
     }
 }
